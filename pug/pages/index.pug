@@ -30,22 +30,15 @@ html(lang="en" data-theme="light")
             img#about-img.hidden(src="./images/sam-suit.jpg", alt="SAM'S PIC")
         section#testimonials.titled-section
             h2.section-title.hidden Testimonials
-            .slide-container
-                .slider
-                    .slide-row.hidden(style="--slides-num:"+slides.length)
-                        each slide in slides
-                            .slide-col
-                                .content
-                                    p !{slide.testimonial}
-                                    h3 !{slide.uname}
-                                .hero
-                                    img(src="./images/avatars/"+slide.image+".avif", alt="avatar")
-                    .indicator
-                        each slide, index in slides
-                            if index == 0
-                                span.btn.active
-                            else
-                                span.btn
+            .slideshow-container
+                each slide, index in slides
+                    .mySlides.fade
+                        img(src="./images/"+slide+".webp", alt="screenshot"+(index+1), style="width:100%")
+                a.prev(onclick="plusSlides(-1)") &#10094;
+                a.next(onclick="plusSlides(1)") &#10095;
+                div(style="text-align:center")
+                    each slide, index in slides
+                        span.dot(onclick="currentSlide("+(index+1)+")")
         section#services.titled-section
             h2.section-title.hidden Services
             .services-container

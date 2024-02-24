@@ -1,24 +1,32 @@
-const btns = document.querySelectorAll(".btn")
-const slideRow = document.querySelector(".slide-row")
-const slider = document.querySelector(".slider")
+let slideIndex = 1;
+showSlides(slideIndex);
 
-let currentIndex = 0
-
-const updateSlide = (_) => {
-    slideRow.style.transform = `translateX(${currentIndex * -slider.offsetWidth}px)`
-
-    btns.forEach((btn, index) => {
-        btn.classList.toggle("active", index === currentIndex)
-    })
+// Next/previous controls
+function plusSlides(n) {
+    showSlides((slideIndex += n));
 }
 
-btns.forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-        currentIndex = index
-        updateSlide()
-    })
-})
+// Thumbnail image controls
+function currentSlide(n) {
+    showSlides((slideIndex = n));
+}
 
-window.addEventListener("resize", () => {
-    updateSlide()
-})
+function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {
+        slideIndex = 1;
+    }
+    if (n < 1) {
+        slideIndex = slides.length;
+    }
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+}

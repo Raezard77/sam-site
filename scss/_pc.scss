@@ -12,22 +12,20 @@ h1 {
 }
 
 .titled-section {
-    @include flex-position($dir:column)
+    @include flex-position($dir: column);
 }
 .section-title {
     margin: 0dvh 0 8dvh 0;
     padding-bottom: 30px;
-    
+
     color: var(--primary-color);
     letter-spacing: 4px;
     font-size: 2.33em;
-        // font-size: clamp(2rem, 4vw, 2.6rem);
+    // font-size: clamp(2rem, 4vw, 2.6rem);
     text-transform: uppercase;
 
     border-bottom: 1px solid var(--primary-color);
 }
-
-
 
 // -
 .hidden {
@@ -43,17 +41,15 @@ h1 {
     transition: all 1s;
 }
 
-@media(prefers-reduced-motion) {
+@media (prefers-reduced-motion) {
     .hidden {
         transition: none;
     }
 }
 
-
-
 // -
 section#about {
-    @include flex-position($x:space-around);
+    @include flex-position($x: space-around);
     padding: 40px;
     padding-top: 8dvh;
 
@@ -66,11 +62,12 @@ section#about {
             padding-bottom: 25px;
         }
 
-        p, address{
+        p,
+        address {
             font-size: 1.5em;
             display: inline;
         }
-        
+
         address {
             color: var(--primary-color);
 
@@ -90,127 +87,100 @@ section#about {
     }
 }
 
-
-
 // -
 section#testimonials {
-    .slide-container {
-        width: 70%;
-        height: 70%;
-    }
-
-    .slider {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-
-    .slide-row {
-        width: calc(var(--slides-num) * 100%);
-        height: 90%;
-        transition: 0.5s;
-        display: flex;  // TODO: Remove
-    }
-    
-    .slide-col {
+    .slideshow-container {
+        max-width: 1000px;
         position: relative;
-        width: 100%;
-        height: 100%;
+        margin: auto;
     }
-    
-    .hero {
-        position: absolute;
-        top: 0;
-        right: 0;
 
-        height: 100%;
-        width: 35%;
-    }
-    
-    .hero img {
-        height: 100%;
-        width: 100%;
-        border-radius: 10px;
-        object-fit: cover;
-        pointer-events: none;  // prevents downloading pics XD
-        user-select: none;
-    }
-    
-    .content {
+    /* Next & previous buttons */
+    .prev,
+    .next {
+        cursor: pointer;
         position: absolute;
-        left: 0;
         top: 50%;
-        transform: translateY(-50%);
-        width: 75%;
-        height: 270px;
-        
-        color: var(--bg-color);
-        background: rgba(255, 255, 255, 0.7);
-        
-        backdrop-filter: blur(4.5px);
-        border-radius: 10px;
-        padding: 45px;
-        z-index: 2;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: #ff006e;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
         user-select: none;
+    }
 
-        @include flex-position($dir:column,$x:space-between, $y:flex-start);
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
     }
-    
-    .content p {
-        line-height: 1.3;
-        font-size: 1.3em;
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
     }
-    
-    .indicator {
-        display: flex;
-        justify-content: center;
-        margin-top: 4rem;
-    }
-    
-    .indicator .btn {
-        display: inline-block;
+
+    /* The dots/bullets/indicators */
+    .dot {
+        cursor: pointer;
         height: 15px;
         width: 15px;
-        margin: 4px;
-        border-radius: 15px;
-        background: var(--primary-color);
-        cursor: pointer;
-        transition: all 0.5s ease-in-out;
+        margin: 0 2px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
     }
-    
-    .btn.active {
-        width: 30px;
+
+    .active,
+    .dot:hover {
+        background-color: #ff006e;
+    }
+
+    /* Fading animation */
+    .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    @keyframes fade {
+        from {
+            opacity: 0.4;
+        }
+        to {
+            opacity: 1;
+        }
     }
 }
-
-
 
 // -
 section#services {
     --clr: violet;
     --transition: 0.5s ease-in-out;
     // cards aboslute height quick fix
-        height: auto;
-        padding: 100px;
+    height: auto;
+    padding: 100px;
 
     .services-container {
-
         width: 1350px;
         height: 70%;
-        
-        @include flex-position($gap:120px);
-        flex-wrap: wrap;
 
+        @include flex-position($gap: 120px);
+        flex-wrap: wrap;
     }
-    
+
     .service-bx {
         width: 330px;
         position: relative;
         height: 375px;
         z-index: 1;
         @include box-shadow(
-            $h:16px,
-            $v:10px,
+            $h: 16px,
+            $v: 10px,
             $blur: 44px,
             $spread: -10px,
             $clr: var(--clr)
@@ -248,28 +218,27 @@ section#services {
         .service .icon-box {
             box-shadow: 0 0 0 6px var(--clr);
             background-color: var(--black-color);
-            svg path{
+            svg path {
                 fill: var(--clr);
             }
         }
         &:hover .service .icon-box {
             box-shadow: 0 0 0 6px var(--black-color), 0 0 0 300px var(--clr);
             background-color: var(--clr);
-            svg path{
+            svg path {
                 fill: var(--black-color);
             }
         }
     }
 
     .service {
-
         width: 100%;
         height: 100%;
-        @include flex-position($dir:column, $gap:25px);
+        @include flex-position($dir: column, $gap: 25px);
         text-align: center;
         padding: 0 40px;
         overflow: hidden;
-        
+
         background: var(--black-color);
         transition: var(--transition);
 
@@ -285,7 +254,8 @@ section#services {
             background-color: transparent;
         }
 
-        h3, span.highlight {
+        h3,
+        span.highlight {
             color: var(--clr);
         }
 
@@ -301,8 +271,10 @@ section#services {
         border-radius: 10px;
         font-family: monospace;
     }
-    
-    h3, span.highlight, p {
+
+    h3,
+    span.highlight,
+    p {
         transition: var(--transition);
     }
 
@@ -316,15 +288,14 @@ section#services {
     }
 }
 
-
-
 // -
 section#faq {
-    .faq-box{
+    .faq-box {
         width: 90%;
     }
 
-    .question, .answer {
+    .question,
+    .answer {
         @include flex-position;
         margin: 100px;
         span {
@@ -351,7 +322,7 @@ section#faq {
                 width: 0px;
                 height: 0px;
                 position: absolute;
-                
+
                 border-right: 24px solid var(--primary-color);
                 border-left: 12px solid transparent;
                 border-top: 12px solid var(--primary-color);
@@ -374,7 +345,7 @@ section#faq {
                 width: 0px;
                 height: 0px;
                 position: absolute;
-                
+
                 border-left: 24px solid var(--accent-color);
                 border-right: 12px solid transparent;
                 border-top: 12px solid var(--accent-color);
@@ -383,12 +354,10 @@ section#faq {
                 bottom: -27px;
             }
 
-            @include box-shadow($blur: 2em, $clr:var(--shadow-color-2));
+            @include box-shadow($blur: 2em, $clr: var(--shadow-color-2));
         }
     }
 }
-
-
 
 // -
 section#call {
@@ -398,8 +367,6 @@ section#call {
         filter: invert(100%) hue-rotate(145deg);
     }
 }
-
-
 
 // -
 footer {
@@ -413,7 +380,7 @@ footer {
         $border: none,
         $b-radius: none
     );
-    @include flex-position($dir:column);
+    @include flex-position($dir: column);
     user-select: none;
 
     h2 {

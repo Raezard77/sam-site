@@ -1,6 +1,7 @@
-/* Add this at the end of the existing CSS code */
+@media only screen and (max-width: 300px) {
+    .prev, .next,.text {font-size: 11px}
+}
 
-/* Responsive Styles */
 @media only screen and (max-width: 799px) {
     :root {
         --nav-inner-margin: 4rem;
