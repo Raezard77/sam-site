@@ -1,0 +1,24 @@
+//- ...
+mixin customHead()
+    //- meta(http-equiv="refresh", content="2")
+
+
+
+//- ...
+mixin loadScripts()
+    script(defer src="./js/debug-tools.js")
+    //- script(defer src="./js/dark-mode.js")
+    script(defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js")
+    script(defer src="./js/navbar.js")
+    script(defer src="./js/hide-url.js")
+    script(defer src="./js/scroll-ani.js")
+    script(defer src="./js/t-slider.js")
+    //- script(defer src="./js/bg-vid.js")
+
+
+
+//- ...
+mixin textInput(type="text", label="Text", name="text", id="text1")
+    .input-group
+        input(type=type, class="input-field", placeholder=" ", name=name, id=id)
+        label(for=id, class="input-label") #{label}

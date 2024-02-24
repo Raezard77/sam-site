@@ -1,0 +1,200 @@
+header {
+    max-width: 100%;
+    position: relative;
+    @include ele-bg($url: "https://w.wallhaven.cc/full/48/wallhaven-48e67o.jpg");
+
+    nav {
+        z-index: 999;
+        width: 100%;
+        margin: 0 auto;  // @float-approach << centering
+        // @include box-shadow;
+        // how to reserve place for fixed-positioned elements
+            position: fixed;
+            top: 0;
+            left: 0;
+        // background: transparent;
+        @include ele-bg($url: "https://w.wallhaven.cc/full/48/wallhaven-48e67o.jpg");
+
+        #logo-container {
+            // @float-approach
+                position: absolute;  // ??
+                padding-left: 20px;
+                float: left;
+            // ?
+                line-height: 8dvh;  // fixed-size! - nav height
+                text-transform: uppercase;
+                font-size: 1.4em; // fixed-size!
+                font-weight: bold;
+                color: var(--color1);
+        }
+
+        #nav-container {
+            float: right; // @float-approach
+
+            ul {
+
+                li {  // #nav-list li
+                    // @float-approach
+                        float: left;
+                        position: relative;
+
+                    a {
+                        // @float-approach
+                            display: block;
+                        // fixed-size! - ?
+                            padding: 10px 20px 0 20px;
+                            line-height: 6.7dvh;
+                        color: var(--white-color);
+                        font-weight: bold;
+
+                        &::before {
+                            transition: $transition-duration;
+                            height: 5px;
+                            content: "";
+                            position: absolute;
+                            background-color: var(--primary-color);
+                            width: 0%;
+                            bottom: -5px;
+                        }
+
+                        &:hover::before{
+                            width: 75%;
+                        }
+                        &:not(:only-child):after {
+                            padding-left: 4px;
+                            content: ' ▾';
+                            color: var(--color1);
+                        }
+                    }
+
+                    ul.nav-dropdown {
+                        position: absolute;  // decisive
+                        z-index: 1;
+                        @include box-shadow;
+                        display: none;
+
+                        li {
+                            min-width: 190px;  // fixed-size!
+
+                            a {
+                                // fixed-size!
+                                    padding: 15px;
+                                    line-height: 20px;
+
+                                // &:hover::before{
+                                //     width: 85%;
+                                // }
+                            }
+                        }
+                    }
+                }
+            }
+
+            #nav-mobile {
+                display: none;
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 70px;  // fixed-size! - nav
+                width: 70px;  // fixed-size! - nav
+
+                #burger-menu {
+                    position: absolute;
+                    left: 18px;
+                    top: 22px;
+                    cursor: pointer;
+                    // fixed-size! ?
+                    padding: 10px 35px 16px 0px;
+
+                    span,
+                    span:before,
+                    span:after {
+                        cursor: pointer;
+                        border-radius: 1px;
+                        // fixed-size!
+                            height: 5px;
+                            width: 35px;
+                        background: var(--white-color);
+                        position: absolute;
+                        display: block;
+                        content: '';
+                        transition: all $transition-duration ease-in-out;
+                    }
+
+                    span:before {top: -10px;}
+                    span:after {bottom: -10px;}
+
+                    &.active span {
+                        background-color: transparent;
+                        &:before,
+                        &:after{top: 0;}
+                        &:before {transform: rotate(45deg)}
+                        &:after {transform: rotate(-45deg)}
+                    }
+                }
+            }
+        }
+
+        // clearfix
+        &::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    }
+}
+
+.selected {
+    color: var(--primary-color) !important
+}
+
+// MQ
+
+// overwrite script so that when it's bigger than $mq-max-width
+// the nav shows the bi-screens way
+@media all and (min-width: $mq-max-width) {
+    #nav-list {
+        display: flex !important;
+    }
+}
+
+@media all and (max-width: $mq-max-width) {
+    header nav #nav-container {
+        width: 100%;  // <>
+        padding: 8vh 0 15px;  // fixed-size!
+        ul {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+
+
+            @include ele-bg($url: "https://w.wallhaven.cc/full/48/wallhaven-48e67o.jpg");
+            height: 92vh;
+            li {
+                float: none;  // <>
+
+                ul.nav-dropdown {
+                    position: static;
+                }
+
+                a {
+                    // fixed-size!
+                        padding: 15px;
+                        line-height: 20px;
+
+                        &:hover::before{
+                            width: 90%;
+                        }
+                }
+
+                ul li a {
+                    padding-left: 30px;
+                }
+            }
+        }
+
+        #nav-mobile {
+            display: block;
+        }
+    }
+}
