@@ -16,14 +16,25 @@
     }
 
     section#about {
-        flex-direction: column;
+        flex-direction: column-reverse;
         padding: 2rem;
-        text-align: center;
-    }
+        text-align: left;
 
-    section#about #about-txt,
-    section#about img#about-img {
-        width: 100%;
+        #about-txt {
+            width: 100%;
+
+            // br {
+            //     display: none;
+            // }
+
+            p, address {
+                font-size: 1em
+            }
+        }
+
+        img#about-img {
+            width: 40%;
+        }
     }
 
     section#testimonials .slide-container,
